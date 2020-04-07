@@ -1,0 +1,4 @@
+GET /api ?Index=s1234 {
+"Studies": "IT", 
+"Semester": 1 
+}

@@ -40,7 +40,30 @@ namespace cw3.Middlewares
 
                 //zapis do pliku
                 System.Console.WriteLine($"{metoda} {sciezka} {querystring} {body}");
-                File.WriteAllText(fileName, $"{metoda} {sciezka} {querystring} {body}");
+                //File.WriteAllText(fileName, $"{metoda} {sciezka} {querystring} {body}");
+
+                if (!File.Exists(fileName))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(fileName))
+                    {
+                        sw.WriteLine(DateTime.Now);
+                        sw.WriteLine(metoda);
+                        sw.WriteLine(sciezka);
+                        sw.WriteLine(querystring);
+                        sw.WriteLine(body);
+                    }
+                } else
+                {
+                    using (StreamWriter sw = File.AppendText(fileName))
+                    {
+                        sw.WriteLine(DateTime.Now);
+                        sw.WriteLine(metoda);
+                        sw.WriteLine(sciezka);
+                        sw.WriteLine(querystring);
+                        sw.WriteLine(body);
+                    }
+                }
 
             }
             await _next(httpContext);
